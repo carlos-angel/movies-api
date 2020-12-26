@@ -1,12 +1,13 @@
 const { port } = require('./config/index');
 const express = require('express');
 const app = express();
+const { moviesApi } = require('./routes');
 
 /** middleware */
 app.use(express.json());
 
 /** routes */
-app.get('/', (req, res) => res.json({ hello: 'hello world' }));
+moviesApi(app);
 
 /**server */
 app.listen(port, () => {
