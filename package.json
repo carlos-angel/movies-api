@@ -1,0 +1,46 @@
+{
+  "name": "movies-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node index.js",
+    "dev": "DEBUG=app* nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Carlos-Angel/movies-api.git"
+  },
+  "keywords": [],
+  "author": "Carlos Alberto Angel Angel <c.a.a.a.503@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Carlos-Angel/movies-api/issues"
+  },
+  "homepage": "https://github.com/Carlos-Angel/movies-api#readme",
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-prettier": "^3.3.0",
+    "husky": "^4.3.6",
+    "lint-staged": "^10.5.3",
+    "nodemon": "^2.0.6",
+    "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
