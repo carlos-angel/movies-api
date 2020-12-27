@@ -8,6 +8,7 @@ const {
   logErrors,
   wrapError,
 } = require('./utils/middleware/errorHandlers');
+const debug = require('debug')('app:server');
 
 /** middleware */
 app.use(express.json());
@@ -25,5 +26,5 @@ app.use(errorHandler);
 
 /**server */
 app.listen(port, () => {
-  console.log(`Listening http://localhost:${port}`);
+  debug(`Listening http://localhost:${port}`);
 });
