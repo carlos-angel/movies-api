@@ -1,6 +1,6 @@
 const moviesMock = [
   {
-    id: 'd2a4a062-d256-41bb-b1b2-9d915af6b75e',
+    id: '5fe7746a91b2fb7af4ecfca5',
     title: 'Notti bianche, Le (White Nights)',
     year: 2019,
     cover: 'http://dummyimage.com/800x600.png/ff4444/ffffff',
@@ -153,6 +153,41 @@ const moviesMock = [
   },
 ];
 
+function filteredMoviesMocks(tags) {
+  return moviesMock.filter((movie) => movie.tags.includes(tags));
+}
+
+function findMovie(movieId) {
+  return moviesMock.find((movie) => movie.id === movieId);
+}
+
+class MoviesServiceMock {
+  async getMovies({ tags }) {
+    if (tags) {
+      return filteredMoviesMocks('Drama');
+    }
+    return Promise.resolve(moviesMock);
+  }
+
+  async getMovie({ movieId }) {
+    return Promise.resolve(findMovie(movieId));
+  }
+
+  async createMovie() {
+    return Promise.resolve(moviesMock[0].id);
+  }
+
+  async updateMovie({ movieId }) {
+    return Promise.resolve(findMovie(movieId).id);
+  }
+
+  async deleteMovie({ movieId }) {
+    return Promise.resolve(findMovie(movieId).id);
+  }
+}
+
 module.exports = {
   moviesMock,
+  filteredMoviesMocks,
+  MoviesServiceMock,
 };
