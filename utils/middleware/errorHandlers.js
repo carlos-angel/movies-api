@@ -27,7 +27,7 @@ function errorHandler(err, req, res, next) {
   } = err;
 
   res.status(statusCode);
-  res.json(withErrorStack(err.payload, err.stack));
+  res.json(withErrorStack(payload, err.stack));
 }
 /* eslint-disable */
 
