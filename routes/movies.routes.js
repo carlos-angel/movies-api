@@ -40,7 +40,7 @@ function moviesApp(app) {
       const { body: movie } = req;
       try {
         const data = await movieService.createMovie({ movie });
-        success(req, res, data, 'movies created', 201);
+        success(req, res, data, 'movie created', 201);
       } catch (error) {
         next(error);
       }
@@ -58,7 +58,7 @@ function moviesApp(app) {
       const { body: movie } = req;
       try {
         const data = await movieService.updateMovie({ movieId, movie });
-        success(req, res, data, 'movies updated', 200);
+        success(req, res, data, 'movie updated', 200);
       } catch (error) {
         next(error);
       }
@@ -72,7 +72,7 @@ function moviesApp(app) {
       const { movieId } = req.params;
       try {
         const data = await movieService.deleteMovie({ movieId });
-        success(req, res, data, 'movies deleted', 200);
+        success(req, res, data, 'movie deleted', 200);
       } catch (error) {
         next(error);
       }
