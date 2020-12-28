@@ -1,7 +1,7 @@
 const { port } = require('./config/index');
 const express = require('express');
 const app = express();
-const { moviesApi } = require('./routes');
+const { moviesApi, userApi, userMovieApi } = require('./routes');
 const notFoundHandler = require('./utils/middleware/notFoundHandler');
 const {
   errorHandler,
@@ -15,6 +15,8 @@ app.use(express.json());
 
 /** routes */
 moviesApi(app);
+userApi(app);
+userMovieApi(app);
 
 /** catch 404 */
 app.use(notFoundHandler);
