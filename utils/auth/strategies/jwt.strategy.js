@@ -20,7 +20,7 @@ passport.use(
         }
 
         delete user.password;
-        return callback({ ...user, scopes: tokenPayload.scopes });
+        return callback(false, { ...user, scopes: tokenPayload.scopes });
       } catch (error) {
         return callback(error);
       }

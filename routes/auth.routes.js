@@ -3,7 +3,9 @@ const { success } = require('../network/success');
 const passport = require('passport');
 const boom = require('@hapi/boom');
 const { signToken } = require('../utils/helpers/tokenHandler');
-const { ApiKeysService } = require('../services/index');
+const { ApiKeysService, UserService } = require('../services/index');
+const validation = require('../utils/middleware/validationHandler');
+const { UserSchema } = require('../utils/schemas/index');
 /** Basic strategy */
 require('../utils/auth/strategies/basic.strategy');
 
@@ -12,6 +14,7 @@ function authApi(app) {
   app.use('/api/v1/auth', router);
 
   const apiKeyService = new ApiKeysService();
+  const userService = new UserService();
 
   router.post('/sign-in', async (req, res, next) => {
     const { apiKeyToken } = req.body;
@@ -52,6 +55,20 @@ function authApi(app) {
       }
     })(req, res, next);
   });
+
+  router.post(
+    '/sign-up',
+    validation(UserSchema.createUserSchema),
+    async (req, res, next) => {
+      const { body: user } = req;
+      try {
+        const data = await userService.createUser({ user });
+        success(req, res, data, 'user created', 201);
+      } catch (error) {
+        next(error);
+      }
+    }
+  );
 }
 
 module.exports = authApi;
