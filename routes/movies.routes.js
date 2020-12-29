@@ -9,6 +9,7 @@ const {
   SIXTY_MINUTES_IN_SECONDS,
 } = require('../utils/time');
 const authentication = require('../utils/middleware/authenticationHandler');
+const scopesValidation = require('../utils/middleware/scopesValidationHandler');
 
 function moviesApp(app) {
   const router = express.Router();
@@ -16,7 +17,7 @@ function moviesApp(app) {
   const movieService = new MovieService();
 
   router.use(authentication);
-  router.get('/', authentication, async (req, res, next) => {
+  router.get('/', scopesValidation(['read:movies']), async (req, res, next) => {
     cacheResponse(res, FIVE_MINUTES_IN_SECONDS);
     const { tags } = req.query;
     try {
@@ -29,7 +30,10 @@ function moviesApp(app) {
 
   router.get(
     '/:movieId',
-    validation({ movieId: MoviesSchema.movieIdSchema }, 'params'),
+    [
+      scopesValidation(['read:movies']),
+      validation({ movieId: MoviesSchema.movieIdSchema }, 'params'),
+    ],
     async (req, res, next) => {
       cacheResponse(res, SIXTY_MINUTES_IN_SECONDS);
       const { movieId } = req.params;
@@ -44,7 +48,10 @@ function moviesApp(app) {
 
   router.post(
     '/',
-    validation(MoviesSchema.createMovieSchema),
+    [
+      scopesValidation(['create:movies']),
+      validation(MoviesSchema.createMovieSchema),
+    ],
     async (req, res, next) => {
       const { body: movie } = req;
       try {
@@ -59,6 +66,7 @@ function moviesApp(app) {
   router.put(
     '/:movieId',
     [
+      scopesValidation(['update:movies']),
       validation({ movieId: MoviesSchema.movieIdSchema }, 'params'),
       validation(MoviesSchema.updateMovieSchema),
     ],
@@ -76,7 +84,10 @@ function moviesApp(app) {
 
   router.delete(
     '/:movieId',
-    validation({ movieId: MoviesSchema.movieIdSchema }, 'params'),
+    [
+      scopesValidation(['delete:movies']),
+      validation({ movieId: MoviesSchema.movieIdSchema }, 'params'),
+    ],
     async (req, res, next) => {
       const { movieId } = req.params;
       try {

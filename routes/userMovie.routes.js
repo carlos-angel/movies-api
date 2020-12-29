@@ -4,6 +4,7 @@ const { UserMovieService } = require('../services/index');
 const validation = require('../utils/middleware/validationHandler');
 const { UserSchema, UserMovieSchema } = require('../utils/schemas/index');
 const authentication = require('../utils/middleware/authenticationHandler');
+const scopesValidation = require('../utils/middleware/scopesValidationHandler');
 
 function userMovieApp(app) {
   const router = express.Router();
@@ -13,7 +14,10 @@ function userMovieApp(app) {
   router.use(authentication);
   router.get(
     '/',
-    validation({ userId: UserSchema.userIdSchema }, 'query'),
+    [
+      scopesValidation(['read:user-movies']),
+      validation({ userId: UserSchema.userIdSchema }, 'query'),
+    ],
     async (req, res, next) => {
       const { userId } = req.query;
       try {
@@ -27,7 +31,10 @@ function userMovieApp(app) {
 
   router.post(
     '/',
-    validation(UserMovieSchema.createUserMovieSchema),
+    [
+      scopesValidation(['create:user-movies']),
+      validation(UserMovieSchema.createUserMovieSchema),
+    ],
     async (req, res, next) => {
       const { body: userMovie } = req;
       try {
@@ -41,7 +48,10 @@ function userMovieApp(app) {
 
   router.delete(
     '/:userMovieId',
-    validation({ userMovieId: UserMovieSchema.userMovieIdSchema }, 'params'),
+    [
+      scopesValidation(['delete:user-movies']),
+      validation({ userMovieId: UserMovieSchema.userMovieIdSchema }, 'params'),
+    ],
     async (req, res, next) => {
       const { userMovieId } = req.params;
       try {
