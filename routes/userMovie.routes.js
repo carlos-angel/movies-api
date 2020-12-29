@@ -3,12 +3,14 @@ const { success } = require('../network/success');
 const { UserMovieService } = require('../services/index');
 const validation = require('../utils/middleware/validationHandler');
 const { UserSchema, UserMovieSchema } = require('../utils/schemas/index');
+const authentication = require('../utils/middleware/authenticationHandler');
 
 function userMovieApp(app) {
   const router = express.Router();
   app.use('/api/v1/user-movies', router);
   const userMovieService = new UserMovieService();
 
+  router.use(authentication);
   router.get(
     '/',
     validation({ userId: UserSchema.userIdSchema }, 'query'),

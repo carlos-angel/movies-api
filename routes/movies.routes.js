@@ -8,13 +8,15 @@ const {
   FIVE_MINUTES_IN_SECONDS,
   SIXTY_MINUTES_IN_SECONDS,
 } = require('../utils/time');
+const authentication = require('../utils/middleware/authenticationHandler');
 
 function moviesApp(app) {
   const router = express.Router();
   app.use('/api/v1/movies', router);
   const movieService = new MovieService();
 
-  router.get('/', async (req, res, next) => {
+  router.use(authentication);
+  router.get('/', authentication, async (req, res, next) => {
     cacheResponse(res, FIVE_MINUTES_IN_SECONDS);
     const { tags } = req.query;
     try {
