@@ -69,6 +69,39 @@ function authApi(app) {
       }
     }
   );
+
+  router.post(
+    '/sign-provider',
+    validation(UserSchema.createProviderUserSchema),
+    async (req, res, next) => {
+      const { apiKeyToken, ...user } = req.body;
+      if (!apiKeyToken) {
+        next(boom.unauthorized('apiKeyToken is required'));
+      }
+      try {
+        const queriedUser = await userService.getOrCreateUser({ user });
+        const apiKey = await apiKeyService.getApiKey({ token: apiKeyToken });
+        if (!apiKey) {
+          next(boom.unauthorized());
+        }
+
+        const { _id: id, name, email } = queriedUser;
+        const payload = {
+          sub: id,
+          name,
+          email,
+          scopes: apiKey.scopes,
+        };
+
+        const token = signToken(payload);
+        const data = { token, user: { id, name, email } };
+
+        success(req, res, data, 'sign in success', 200);
+      } catch (error) {
+        next(error);
+      }
+    }
+  );
 }
 
 module.exports = authApi;
