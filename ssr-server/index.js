@@ -4,8 +4,8 @@ const boom = require('@hapi/boom');
 const cookieParser = require('cookie-parser');
 const axios = require('axios');
 const { config } = require('./config');
-const THIRTY_DAYS_IN_SEC = 2592000;
-const TWO_HOURS_IN_SEC = 7200;
+const THIRTY_DAYS_IN_SEC = 2592000000;
+const TWO_HOURS_IN_SEC = 7200000;
 
 const app = express();
 
@@ -29,7 +29,7 @@ app.post('/auth/sign-in', async function (req, res, next) {
           next(error);
         }
 
-        const { token, ...user } = data;
+        const { token, ...user } = data.data;
 
         res.cookie('token', token, {
           httpOnly: !config.dev,
@@ -60,8 +60,47 @@ app.post('/auth/sign-up', async function (req, res, next) {
 });
 
 // app.get('/movies', async function (req, res, next) {});
-// app.post('/user-movies', async function (req, res, next) {});
-// app.delete('/user-movies/:userMovieId', async function (req, res, next) {});
+app.post('/user-movies', async function (req, res, next) {
+  try {
+    const { body: userMovie } = req;
+    const { token } = req.cookies;
+
+    const { data, status } = await axios({
+      url: `${config.apiUrl}/api/v1/user-movies`,
+      headers: { Authorization: `Bearer ${token}` },
+      method: 'post',
+      data: userMovie,
+    });
+
+    if (status !== 201) {
+      return next(boom.badImplementation());
+    }
+
+    res.status(201).json(data);
+  } catch (error) {
+    next(error);
+  }
+});
+app.delete('/user-movies/:userMovieId', async function (req, res, next) {
+  try {
+    const { userMovieId } = req.params;
+    const { token } = req.cookies;
+
+    const { data, status } = await axios({
+      url: `${config.apiUrl}/api/v1/user-movies/${userMovieId}`,
+      headers: { Authorization: `Bearer ${token}` },
+      method: 'delete',
+    });
+
+    if (status !== 200) {
+      return next(boom.badImplementation());
+    }
+
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+});
 
 /** ssr-server */
 app.listen(config.port, function () {
