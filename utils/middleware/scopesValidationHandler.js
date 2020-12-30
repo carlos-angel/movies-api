@@ -9,7 +9,7 @@ function scopesValidationHandler(allowedScopes) {
     const hasAccess = allowedScopes
       .map((allowedScope) => req.user.scopes.includes(allowedScope))
       .find((allowed) => Boolean(allowed));
-    console.log('scopes user', req.user.scopes);
+
     hasAccess ? next() : next(boom.unauthorized('Insufficient scopes'));
   };
 }
