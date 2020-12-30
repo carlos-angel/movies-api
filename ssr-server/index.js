@@ -13,8 +13,10 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-/**strategy basic */
+/** basic strategy */
 require('./utils/auth/strategies/basic');
+/** oauth strategy */
+require('./utils/auth/strategies/oauth.strategy');
 
 /** routes */
 app.post('/auth/sign-in', async function (req, res, next) {
@@ -101,6 +103,33 @@ app.delete('/user-movies/:userMovieId', async function (req, res, next) {
     next(error);
   }
 });
+
+app.get(
+  '/auth/google-oauth',
+  passport.authenticate('google-oauth', {
+    scope: ['email', 'profile', 'openid'],
+  })
+);
+
+app.get(
+  '/auth/google-oauth/callback',
+  passport.authenticate('google-oauth', { session: false }),
+  function (req, res, next) {
+    const { rememberMe } = req.body;
+    if (!req.user) {
+      next(boom.unauthorized());
+    }
+
+    const { token, ...user } = req.user;
+
+    res.cookie('token', token, {
+      httpOnly: !config.dev,
+      secure: !config.dev,
+      maxAge: rememberMe ? THIRTY_DAYS_IN_SEC : TWO_HOURS_IN_SEC,
+    });
+    res.status(200).json(user);
+  }
+);
 
 /** ssr-server */
 app.listen(config.port, function () {
