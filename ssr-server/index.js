@@ -17,6 +17,8 @@ app.use(cookieParser());
 require('./utils/auth/strategies/basic');
 /** oauth strategy */
 require('./utils/auth/strategies/oauth.strategy');
+/** google strategy */
+require('./utils/auth/strategies/google.strategy');
 
 /** routes */
 app.post('/auth/sign-in', async function (req, res, next) {
@@ -122,6 +124,31 @@ app.get(
 
     const { token, ...user } = req.user;
 
+    res.cookie('token', token, {
+      httpOnly: !config.dev,
+      secure: !config.dev,
+      maxAge: rememberMe ? THIRTY_DAYS_IN_SEC : TWO_HOURS_IN_SEC,
+    });
+    res.status(200).json(user);
+  }
+);
+
+app.get(
+  '/auth/google',
+  passport.authenticate('google', {
+    scope: ['email', 'profile', 'openid'],
+  })
+);
+
+app.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { session: false }),
+  function (req, res, next) {
+    const { rememberMe } = req.body;
+    if (!req.user) {
+      next(boom.unauthorized());
+    }
+    const { token, ...user } = req.user;
     res.cookie('token', token, {
       httpOnly: !config.dev,
       secure: !config.dev,
