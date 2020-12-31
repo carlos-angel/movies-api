@@ -9,9 +9,11 @@ const {
   wrapError,
 } = require('./utils/middleware/errorHandlers');
 const debug = require('debug')('app:server');
+const helmet = require('helmet');
 
 /** middleware */
 app.use(express.json());
+app.use(helmet());
 
 /** routes */
 authApi(app);

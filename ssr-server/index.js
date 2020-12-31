@@ -10,11 +10,13 @@ const {
   facebookApp,
   userMovieApp,
 } = require('./routes');
+const helmet = require('helmet');
 
 const app = express();
 
 /** middleware */
 app.use(express.json());
+app.use(helmet());
 app.use(cookieParser());
 app.use(session({ secret: config.sessionSecret }));
 app.use(passport.initialize());
