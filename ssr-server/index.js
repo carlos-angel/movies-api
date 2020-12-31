@@ -25,6 +25,8 @@ require('./utils/auth/strategies/oauth.strategy');
 require('./utils/auth/strategies/google.strategy');
 /** twitter strategy */
 require('./utils/auth/strategies/twitter.strategy');
+/** facebook strategy */
+require('./utils/auth/strategies/facebook.strategy');
 
 /** routes */
 app.post('/auth/sign-in', async function (req, res, next) {
@@ -169,6 +171,29 @@ app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get(
   '/auth/twitter/callback',
   passport.authenticate('twitter', { session: false }),
+  function (req, res, next) {
+    const { rememberMe } = req.body;
+    if (!req.user) {
+      next(boom.unauthorized());
+    }
+    const { token, ...user } = req.user;
+    res.cookie('token', token, {
+      httpOnly: !config.dev,
+      secure: !config.dev,
+      maxAge: rememberMe ? THIRTY_DAYS_IN_SEC : TWO_HOURS_IN_SEC,
+    });
+    res.status(200).json(user);
+  }
+);
+
+app.get(
+  '/auth/facebook',
+  passport.authenticate('facebook', { scope: ['email', 'profile', 'openid'] })
+);
+
+app.get(
+  '/auth/facebook/callback',
+  passport.authenticate('facebook', { session: false }),
   function (req, res, next) {
     const { rememberMe } = req.body;
     if (!req.user) {
