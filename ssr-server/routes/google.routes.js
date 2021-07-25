@@ -12,7 +12,7 @@ require('../utils/auth/strategies/google.strategy');
 
 function googleApp(app) {
   const router = express.Router();
-  router.use('/auth', app);
+  app.use('/auth', router);
 
   router.get(
     '/google-oauth',
@@ -30,7 +30,7 @@ function googleApp(app) {
         next(boom.unauthorized());
       }
 
-      const { token, ...user } = req.user;
+      const { token, ...user } = req.user.data;
 
       res.cookie('token', token, {
         httpOnly: !config.dev,
@@ -56,7 +56,7 @@ function googleApp(app) {
       if (!req.user) {
         next(boom.unauthorized());
       }
-      const { token, ...user } = req.user;
+      const { token, ...user } = req.user.data;
       res.cookie('token', token, {
         httpOnly: !config.dev,
         secure: !config.dev,
