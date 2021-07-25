@@ -10,12 +10,9 @@ require('../utils/auth/strategies/facebook.strategy');
 
 function facebookApp(app) {
   const routes = express.Router();
-  routes.use('/auth', app);
+  app.use('/auth', routes);
 
-  routes.get(
-    '/facebook',
-    passport.authenticate('facebook', { scope: ['email', 'profile', 'openid'] })
-  );
+  routes.get('/facebook', passport.authenticate('facebook'));
 
   routes.get(
     '/facebook/callback',
@@ -25,7 +22,7 @@ function facebookApp(app) {
       if (!req.user) {
         next(boom.unauthorized());
       }
-      const { token, ...user } = req.user;
+      const { token, ...user } = req.user.data;
       res.cookie('token', token, {
         httpOnly: !config.dev,
         secure: !config.dev,
