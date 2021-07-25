@@ -10,7 +10,7 @@ require('../utils/auth/strategies/basic');
 
 function authApp(app) {
   const router = express.Router();
-  router.use('/auth', app);
+  app.use('/auth', router);
 
   router.post('/sign-in', async function (req, res, next) {
     const { rememberMe } = req.body;
