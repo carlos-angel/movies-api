@@ -5,11 +5,11 @@ const { config } = require('../config');
 
 function userMovieApp(app) {
   const routes = express.Router();
-  routes.use('/user-movies', app);
+  app.use('/user-movies', routes);
 
   // app.get('/movies', async function (req, res, next) {});
 
-  routes.post('/user-movies', async function (req, res, next) {
+  routes.post('/', async function (req, res, next) {
     try {
       const { body: userMovie } = req;
       const { token } = req.cookies;
@@ -30,7 +30,7 @@ function userMovieApp(app) {
       next(error);
     }
   });
-  routes.delete('/user-movies/:userMovieId', async function (req, res, next) {
+  routes.delete('/:userMovieId', async function (req, res, next) {
     try {
       const { userMovieId } = req.params;
       const { token } = req.cookies;
