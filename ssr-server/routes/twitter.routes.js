@@ -10,11 +10,11 @@ require('../utils/auth/strategies/twitter.strategy');
 
 function twitterApp(app) {
   const routes = express.Router();
-  routes.use('/auth', app);
+  app.use('/auth', routes);
 
-  app.get('/twitter', passport.authenticate('twitter'));
+  routes.get('/twitter', passport.authenticate('twitter'));
 
-  app.get(
+  routes.get(
     '/twitter/callback',
     passport.authenticate('twitter', { session: false }),
     function (req, res, next) {
@@ -22,7 +22,7 @@ function twitterApp(app) {
       if (!req.user) {
         next(boom.unauthorized());
       }
-      const { token, ...user } = req.user;
+      const { token, ...user } = req.user.data;
       res.cookie('token', token, {
         httpOnly: !config.dev,
         secure: !config.dev,
