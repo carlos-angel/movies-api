@@ -8,7 +8,8 @@ const moviesMock = [
       'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.',
     duration: 66,
     contentRating: 'G',
-    source: 'https://ovh.net/semper/rutrum/nulla/nunc.jsp',
+    source:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
     tags: [
       'Action|Adventure',
       'Action|Adventure|Thriller',
@@ -29,7 +30,7 @@ const moviesMock = [
     duration: 77,
     contentRating: 'NC-17',
     source:
-      'https://multiply.com/dui/proin/leo/odio/porttitor/id/consequat.jsp',
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
     tags: [
       'Comedy',
       'War',
@@ -50,7 +51,8 @@ const moviesMock = [
       'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.\n\nPhasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.\n\nProin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.',
     duration: 142,
     contentRating: 'PG',
-    source: 'http://odnoklassniki.ru/porta/volutpat/erat.jsp',
+    source:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
     tags: ['Crime|Drama|Thriller'],
   },
   {
@@ -62,7 +64,8 @@ const moviesMock = [
       'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.\n\nSuspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.',
     duration: 172,
     contentRating: 'PG',
-    source: 'https://un.org/tortor/id/nulla/ultrices/aliquet/maecenas.png',
+    source:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
     tags: ['Drama', 'Drama|Mystery|Thriller', 'Drama|Thriller'],
   },
   {
@@ -74,7 +77,8 @@ const moviesMock = [
       'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.',
     duration: 155,
     contentRating: 'G',
-    source: 'http://pagesperso-orange.fr/varius/ut/blandit/non/interdum/in.js',
+    source:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
     tags: [
       'Crime|Drama|Mystery|Thriller',
       'Crime|Drama|Mystery|Thriller',
@@ -92,7 +96,8 @@ const moviesMock = [
       'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.',
     duration: 173,
     contentRating: 'R',
-    source: 'https://nih.gov/erat/quisque/erat/eros.jpg',
+    source:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
     tags: ['Action|Drama', 'Comedy'],
   },
   {
@@ -104,7 +109,8 @@ const moviesMock = [
       'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.',
     duration: 115,
     contentRating: 'R',
-    source: 'https://umich.edu/cursus/id/turpis/integer/aliquet.aspx',
+    source:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
     tags: ['Comedy|Romance', 'Drama|Thriller', 'Animation|Children'],
   },
   {
@@ -116,7 +122,8 @@ const moviesMock = [
       'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.\n\nCurabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.\n\nPhasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.',
     duration: 158,
     contentRating: 'NC-17',
-    source: 'https://psu.edu/duis/bibendum/morbi/non/quam.aspx',
+    source:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
     tags: ['Drama', 'Thriller'],
   },
   {
@@ -128,7 +135,8 @@ const moviesMock = [
       'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.',
     duration: 173,
     contentRating: 'PG',
-    source: 'https://flavors.me/lorem/ipsum/dolor/sit.json',
+    source:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
     tags: [
       'Animation|Comedy',
       'Documentary',
@@ -148,7 +156,7 @@ const moviesMock = [
     duration: 62,
     contentRating: 'PG',
     source:
-      'http://columbia.edu/eget/orci/vehicula/condimentum/curabitur/in/libero.html',
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
     tags: ['Action|Adventure|Comedy|Drama|War', 'Animation', 'Drama'],
   },
 ];
