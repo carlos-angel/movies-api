@@ -69,5 +69,8 @@
       "lib",
       "utils"
     ]
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
